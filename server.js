@@ -14,13 +14,14 @@ var db = require("./models");
 // Initialize Express
 var app = express();
 
+// // view engine setup
+// app.set('views', path.join(__dirname, 'views/'));
+
  // handlebars
  app.engine('handlebars', exphbs({defaultLayout: 'main'}));
  app.set('view engine', 'handlebars');
   
- app.get('/', function (req, res) {
-     res.render('home');
- });
+
 
 // Use body-parser for handling form submissions
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -31,7 +32,11 @@ app.use(express.static("public"));
 // Connect to the Mongo DB
 mongoose.Promise = Promise;
 mongoose.connect("mongodb://localhost/scraper", {
-  useMongoClient: true
+//   useMongoClient: true
+});
+
+app.get('/', function (req, res) {
+    res.render('home');
 });
 
 // When the server starts, create and save a new Article document to the db
