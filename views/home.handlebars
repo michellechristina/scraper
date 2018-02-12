@@ -7,7 +7,11 @@
     <h5 class="card-title">{{this.headline}}</h5>
          <p class="card-text">{{this.summary}}</p>
       <p class="card-text">{{this.url}}</p>
-      <a href="#" class="card-link">Save Article</a>
+      <a class="saveMe" href="#" class="card-link" 
+        data-headline="{{this.headline}}"
+        data-summary="{{this.summary}}"
+        data-url="{{this.url}}"
+        >Save Article</a>
     </div>
   </div>
    

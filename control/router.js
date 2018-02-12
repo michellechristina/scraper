@@ -59,4 +59,17 @@ router.get('/scrape', function (req, res) {
     getTheNews(req, res);
 });
 
+
+
+// Route for saving an Article
+router.post("/save", function (req, res) {
+    // Create a saved article in the db
+    console.log("req.body");
+    console.log(req.body);
+    db.Articles.create(req.body).catch(function (err) {
+      // if error, send
+        res.json(err);
+    });
+});
+
 module.exports = router;

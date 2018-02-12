@@ -13,8 +13,7 @@ var ArticleSchema = new Schema({
     unique: true
   },
   summary: {
-    type: String,
-    unique: true
+    type: String
   },
   url: {
     type: String,
