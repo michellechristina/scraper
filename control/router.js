@@ -12,7 +12,7 @@ var router = express.Router();
 function getTheNews(req, res) {
 
     // Make a request for the news section of ycombinator
-    request("http://www.echojs.com/", function (error, response, html) {
+    request("https://news.ycombinator.com/", function (error, response, html) {
         // Load the html body from request into cheerio
         var $ = cheerio.load(html);
 
@@ -22,7 +22,7 @@ function getTheNews(req, res) {
         // console.log(results);
 
         // For each element with a "h2" class
-        $("article h2").each(function (i, element) {
+        $(".title").each(function(i, element) {
             // console.log("element");
             //   console.log(element);
             // Save the text and href of each link enclosed in the current element
@@ -30,7 +30,7 @@ function getTheNews(req, res) {
             var summary = "a summary of things";
             var url = $(element).children("a").attr("href");
 
-
+            if (headline && url) {
             // console.log("headline");
             // console.log(headline);
             results.push({
@@ -38,6 +38,7 @@ function getTheNews(req, res) {
                 summary: summary,
                 url: url
             });
+        }
         
             // console.log("results");
             // console.log(results);
@@ -71,5 +72,22 @@ router.post("/save", function (req, res) {
         res.json(err);
     });
 });
+
+// Route for getting all Articles from the db
+router.get("/articles", function(req, res) {
+    // Grab every document in the Articles collection
+    db.Articles.find({})
+      .then(function(dbArticle) {
+       
+       // Send data back to the client
+       res.render("articles", {
+        article: dbArticle
+    });
+      })
+      .catch(function(err) {
+        // If an error occurred, send it to the client
+        res.json(err);
+      });
+  });
 
 module.exports = router;

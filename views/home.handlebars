@@ -11,6 +11,7 @@
         data-headline="{{this.headline}}"
         data-summary="{{this.summary}}"
         data-url="{{this.url}}"
+        data-toggle="modal" data-target="#savedModal"
         >Save Article</a>
     </div>
   </div>
@@ -18,3 +19,24 @@
   {{/each}}
 
 {{/if}}
+
+<!-- Modal -->
+<div class="modal fade" id="savedModal" tabindex="-1" role="dialog" aria-labelledby="savedModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="savedModalLabel">Success!</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        You've saved this article!
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        {{!-- <button type="button" class="btn btn-primary">Save changes</button> --}}
+      </div>
+    </div>
+  </div>
+</div>

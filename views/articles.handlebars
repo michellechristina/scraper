@@ -1,0 +1,20 @@
+{{#if article}}
+
+  {{#each article}}
+  <div class="card" style="display: inline-block; width: 300px; margin:25px;">
+  <img class="card-img-top" src="http://loremflickr.com/300/200/computers" alt="Card image cap">
+   <div class="card-body">
+    <h5 class="card-title">{{this.headline}}</h5>
+         <p class="card-text">{{this.summary}}</p>
+      <p class="card-text">{{this.url}}</p>
+      <a class="saveMe" href="#" class="card-link" 
+        data-headline="{{this.headline}}"
+        data-summary="{{this.summary}}"
+        data-url="{{this.url}}"
+        >Leave A Comment</a>
+    </div>
+  </div>
+   
+  {{/each}}
+
+{{/if}}
