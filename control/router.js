@@ -77,6 +77,7 @@ router.post("/save", function (req, res) {
 router.get("/articles", function(req, res) {
     // Grab every document in the Articles collection
     db.Articles.find({})
+    .populate("comments")
       .then(function(dbArticle) {
        
        // Send data back to the client
@@ -89,5 +90,44 @@ router.get("/articles", function(req, res) {
         res.json(err);
       });
   });
+
+
+  // Route for grabbing a specific Article by id, populate it with it's comment
+router.get("/articles/:id", function(req, res) {
+    // Using the id passed in the id parameter, prepare a query that finds the matching one in our db...
+    db.Articles.findOne({ _id: req.params.id })
+      // ..and populate all of the notes associated with it
+      .populate("comments")
+      .then(function(dbArticle) {
+        // If we were able to successfully find an Article with the given id, send it back to the client
+        res.json(dbArticle);
+      })
+      .catch(function(err) {
+        // If an error occurred, send it to the client
+        res.json(err);
+      });
+  });
+
+
+// save a comment
+router.post("/articles/:id", function(req, res) {
+    db.Comments.create(req.body)
+      .then(function(dbComments) {
+        return db.Articles.findOneAndUpdate({ _id: req.params.id }, {$push: { comments: dbComments._id }}, { new: true });
+      })
+      .then(function(data) {
+       
+        // Send data back to the client
+        res.render("articles", {
+         comment: data
+     });
+       })
+      .catch(function(err) {
+        // If an error occurred, send it to the client
+        res.json(err);
+      });
+  });
+
+  
 
 module.exports = router;

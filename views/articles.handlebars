@@ -1,20 +1,49 @@
-{{#if article}}
-
-  {{#each article}}
-  <div class="card" style="display: inline-block; width: 300px; margin:25px;">
-  <img class="card-img-top" src="http://loremflickr.com/300/200/computers" alt="Card image cap">
-   <div class="card-body">
-    <h5 class="card-title">{{this.headline}}</h5>
-         <p class="card-text">{{this.summary}}</p>
-      <p class="card-text">{{this.url}}</p>
-      <a class="saveMe" href="#" class="card-link" 
-        data-headline="{{this.headline}}"
-        data-summary="{{this.summary}}"
-        data-url="{{this.url}}"
-        >Leave A Comment</a>
+{{#if article}} {{#each article}}
+<div class="card" style="display: inline-block; width: 300px; margin:25px;">
+    <img class="card-img-top" src="http://loremflickr.com/300/200/computers" alt="Card image cap">
+    <div class="card-body">
+        <h5 class="card-title">{{this.headline}}</h5>
+        <p class="card-text">{{this.summary}}</p>
+        <p class="card-text">{{this.url}}</p>
+        <a class="addComment" href="#" class="card-link" data-id="{{this._id}}"
+            data-toggle="modal" data-target="#commentsModal">Comments</a>
     </div>
-  </div>
-   
-  {{/each}}
+</div>
 
-{{/if}}
+
+
+
+<!-- Modal -->
+<div class="modal fade" id="commentsModal" tabindex="-1" role="dialog" aria-labelledby="commentsModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="commentsModalLabel">Comments for Article: {{this._id}}</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p> things are happening here</p>
+                <pre>{{this.comments}}</pre>
+                {{#if comments}}  {{#each comments}} 
+                 <p class="card-text">Comment: {{this.body}}</p> 
+                {{/each}} {{/if}}
+
+                <form>
+
+                    <div class="form-group">
+                        <label for="message-text" class="col-form-label">Comment:</label>
+                        <textarea class="form-control" id="commentInput"></textarea>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" id="saveComment" data-dismiss="modal" data-id="{{this._id}}">Save Comment</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+{{/each}} {{/if}}
