@@ -104,62 +104,58 @@ app.get('/', function (req, res) {
 
 // A GET route for scraping the echojs website
 app.get("/scrape", function (req, res) {
-// First, we grab the body of the html with request
-axios.get("https://medium.com/")
-    .then(function (response) {
-        // Then, we load that into cheerio and save it to $ for a shorthand selector
-        var $ = cheerio.load(response.data);
+    // First, we grab the body of the html with request
+    axios.get("http://www.echojs.com/")
+        .then(function (response) {
+            // Then, we load that into cheerio and save it to $ for a shorthand selector
+            var $ = cheerio.load(response.data);
 
-        var results = [];
-        // Now, we grab every h2 within an article tag, and do the following:
-        // $("article h2").each(function (i, element) {
-        //         // Save an empty result object
+            var articleArray = [];
+            // Now, we grab every h2 within an article tag, and do the following:
+            $("article h2").each(function (i, element) {
+                // Save an empty result object
 
-        //         var result = {};
+                var result = {};
+                // console.log($(this));
 
-        //         // Add the text and href of every link, and save them as properties of the result object
-        //         result.title = $(this)
-        //             .children("a")
-        //             .text();
-        //         result.link = $(this)
-        //             .children("a")
-        //             .attr("href");
+                // Add the text and href of every link, and save them as properties of the result object
+                result.title = $(this)
+                    .children("a")
+                    .text();
+                result.link = $(this)
+                    .children("a")
+                    .attr("href");
 
-        $("h3.ui-h2.ui-xs-h4.ui-clamp3").each(function (i, element) {
-console.log(element);
-            var link = $(element).attr("href");
-            var title = $(element).text();
-
-            
-            results.push({
-                title: title,
-                link: link
+                articleArray.push(result);
+                
+                db.Article.create(articleArray)
+                    .then(function (dbArticle) {
+                        // View the added result in the console
+                        // console.log("DB ARTICLE")
+                        // console.log(dbArticle);
+                        // If we were able to successfully scrape and save an Article, send a message to the client
+                        res.send(articleArray);
+                    })
+                    .catch(function (err) {
+                        // If an error occurred, send it to the client
+                        console.log("i am an error");
+                        // console.log(err);
+                        // return res.json(err);
+    
+                    });
             });
-        });
-        console.log("title");
-console.log(results);
-        // Create a new Article using the `result` object built from scraping
-        db.Article.create(results)
-            .then(function (dbArticle) {
-                // View the added result in the console
-                console.log(dbArticle);
-                // If we were able to successfully scrape and save an Article, send a message to the client
+            //end of my each loop
 
-            })
+            // Create a new Article using the `result` object built from scraping
+            // console.log("ARTICLE ARRAY")
+            // console.log(articleArray);
+            // res.render("index", { quotes: data });
 
-        // articleArray.push(result);
-        // res.render("index", { quotes: data });
-        res.send(results);
-    })
-    .catch(function (err) {
-        // If an error occurred, send it to the client
-        console.log(err);
-        return res.json(err);
 
-    });
 
+
+        }); // ends axios get
 });
-
 
 // Route for getting all Articles from the db
 app.get("/article", function (req, res) {
