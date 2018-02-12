@@ -5,8 +5,7 @@
         <h5 class="card-title">{{this.headline}}</h5>
         <p class="card-text">{{this.summary}}</p>
         <p class="card-text">{{this.url}}</p>
-        <a class="addComment" href="#" class="card-link" data-id="{{this._id}}"
-            data-toggle="modal" data-target="#commentsModal">Comments</a>
+        <a class="addComment" href="#" class="card-link" data-id="{{this._id}}" data-toggle="modal" data-target="#{{this._id}}">Comments</a>
     </div>
 </div>
 
@@ -14,33 +13,45 @@
 
 
 <!-- Modal -->
-<div class="modal fade" id="commentsModal" tabindex="-1" role="dialog" aria-labelledby="commentsModalLabel" aria-hidden="true">
+<div class="modal fade" id="{{this._id}}" tabindex="-1" role="dialog" aria-labelledby="commentsModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="commentsModalLabel">Comments for Article: {{this._id}}</h5>
+                <h5 class="modal-title" id="commentsModalLabel">Comments for The Article:
+                    <br> {{this.headline}}</br>
+                </h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
             <div class="modal-body">
-                <p> things are happening here</p>
-                <pre>{{this.comments}}</pre>
-                {{#if comments}}  {{#each comments}} 
-                 <p class="card-text">Comment: {{this.body}}</p> 
-                {{/each}} {{/if}}
+                {{!--
+                <p> things are happening here</p> --}} {{!--
+                <pre>{{this.comments}}</pre> --}} {{!--
+                <p class="card-text">Comment: {{this.body}}</p> --}}
+                <ul class="list-group">
+                    {{#if comments}} {{#each comments}}
+                    <li class="list-group-item">{{this.body}}
+                        <button type="button" class="badge badge-primary badge-pill deleteButton" data-id="{{this._id}}">delete</button>
+                       <pre>{{this._id}}</pre>
+                        {{!--
+                        <span class="badge badge-primary badge-pill">delete comment</span> --}}
+                    </li>
+                    {{/each}} {{/if}}
+                </ul>
+
 
                 <form>
 
                     <div class="form-group">
                         <label for="message-text" class="col-form-label">Comment:</label>
-                        <textarea class="form-control" id="commentInput"></textarea>
+                        <textarea class="form-control commentInput"></textarea>
                     </div>
                 </form>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary" id="saveComment" data-dismiss="modal" data-id="{{this._id}}">Save Comment</button>
+                <button type="button" class="btn btn-primary saveComment" data-dismiss="modal" data-id="{{this._id}}">Save Comment</button>
             </div>
         </div>
     </div>

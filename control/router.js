@@ -92,7 +92,8 @@ router.get("/articles", function(req, res) {
   });
 
 
-  // Route for grabbing a specific Article by id, populate it with it's comment
+  // Route for grabbing a specific Article by id, to delete the comment
+  // delete from comments table
 router.get("/articles/:id", function(req, res) {
     // Using the id passed in the id parameter, prepare a query that finds the matching one in our db...
     db.Articles.findOne({ _id: req.params.id })
@@ -127,6 +128,16 @@ router.post("/articles/:id", function(req, res) {
         res.json(err);
       });
   });
+
+  // save a comment
+router.delete("/comments/:id", function(req, res) {
+    console.log("Deleted");
+    console.log(req.body);
+    db.Comments.remove({ _id: req.params.id })
+    .then(res.json({msg: "removed"}))
+    .catch(console.log)
+  });
+ 
 
   
 
