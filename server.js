@@ -9,7 +9,7 @@ var exphbs  = require('express-handlebars');
 
 
 
-var PORT = 3000;
+var port = normalizePort(process.env.PORT || '3000');
 
 
 
@@ -60,5 +60,5 @@ app.use("/", router);
 
 // Start the server
 app.listen(PORT, function() {
-    console.log("App running on port " + PORT + "!");
+    console.log("App running on port " + port + "!");
   });
