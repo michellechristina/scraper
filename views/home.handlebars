@@ -1,24 +1,16 @@
-{{#if article}}
-
-  {{#each article}}
- <div class="card" style="display: inline-block; width: 30%; margin:10px;">
-     <img class="card-top colorize" style="height: 35px; width: 100%;">
-   <div class="card-body">
+{{#if article}} {{#each article}}
+<div class="card" style="display: inline-block; width: 30%; margin:10px;">
+  <img class="card-top colorize" style="height: 35px; width: 100%;">
+  <div class="card-body">
     <h5 class="card-title" style="letter-spacing: 3px;">{{this.headline}}</h5>
-         <p class="card-text" style="font-size: 80%; text-transform: uppercase;">{{this.summary}}</p>
-      <a class="card-text" style="color: #008081; font-size: 70%; text-transform: uppercase;" href="{{this.url}}">Read More</a> | 
-      <a class="saveMe" style="color: #008081; font-size: 70%; text-transform: uppercase;" href="#" class="card-link" 
-        data-headline="{{this.headline}}"
-        data-summary="{{this.summary}}"
-        data-url="{{this.url}}"
-        data-toggle="modal" data-target="#savedModal"
-        >Save Article</a>
-    </div>
+    <p class="card-text" style="font-size: 80%; text-transform: uppercase;">{{this.summary}}</p>
+    <a class="card-text" style="color: #008081; font-size: 70%; text-transform: uppercase;" href="{{this.url}}">Read More</a> |
+    <a class="saveMe" style="color: #008081; font-size: 70%; text-transform: uppercase;" href="#" class="card-link" data-headline="{{this.headline}}"
+      data-summary="{{this.summary}}" data-url="{{this.url}}" data-toggle="modal" data-target="#savedModal">Save Article</a>
   </div>
-   
-  {{/each}}
+</div>
 
-{{/if}}
+{{/each}} {{/if}}
 
 <!-- Modal -->
 <div class="modal fade" id="savedModal" tabindex="-1" role="dialog" aria-labelledby="savedModalLabel" aria-hidden="true">
@@ -35,7 +27,6 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        {{!-- <button type="button" class="btn btn-primary">Save changes</button> --}}
       </div>
     </div>
   </div>

@@ -1,11 +1,12 @@
 {{#if article}} {{#each article}}
 <div class="card" style="display: inline-block; width: 30%; margin:10px;">
-     <img class="card-top colorize" style="height: 35px; width: 100%;">
+    <img class="card-top colorize" style="height: 35px; width: 100%;">
     <div class="card-body">
         <h5 class="card-title">{{this.headline}}</h5>
         <p class="card-text" style="font-size: 80%; text-transform: uppercase;">{{this.summary}}</p>
-         <a class="card-text" style="color: #008081; font-size: 70%; text-transform: uppercase;" href="{{this.url}}">Read More</a> |
-        <a class="addComment" href="#" style="color: #008081; font-size: 70%; text-transform: uppercase;" class="card-link" data-id="{{this._id}}" data-toggle="modal" data-target="#{{this._id}}">Comments</a>
+        <a class="card-text" style="color: #008081; font-size: 70%; text-transform: uppercase;" href="{{this.url}}">Read More</a> |
+        <a class="addComment" href="#" style="color: #008081; font-size: 70%; text-transform: uppercase;" class="card-link" data-id="{{this._id}}"
+            data-toggle="modal" data-target="#{{this._id}}">Comments</a>
     </div>
 </div>
 
@@ -25,24 +26,18 @@
                 </button>
             </div>
             <div class="modal-body">
-                {{!--
-                <p> things are happening here</p> --}} {{!--
-                <pre>{{this.comments}}</pre> --}} {{!--
-                <p class="card-text">Comment: {{this.body}}</p> --}}
+
                 <ul class="list-group">
                     {{#if comments}} {{#each comments}}
                     <li class="list-group-item">{{this.body}}
                         <button type="button" class="badge badge-primary badge-pill deleteButton" data-id="{{this._id}}">delete</button>
-                       <pre>{{this._id}}</pre>
-                        {{!--
-                        <span class="badge badge-primary badge-pill">delete comment</span> --}}
+
                     </li>
                     {{/each}} {{/if}}
                 </ul>
 
 
                 <form>
-
                     <div class="form-group">
                         <label for="message-text" class="col-form-label">Comment:</label>
                         <textarea class="form-control commentInput"></textarea>
