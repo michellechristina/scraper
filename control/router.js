@@ -27,7 +27,7 @@ function getTheNews(req, res) {
             //   console.log(element);
             // Save the text and href of each link enclosed in the current element
             var headline = $(element).children("a").text();
-            var summary = "a summary of things";
+            var summary = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.";
             var url = $(element).children("a").attr("href");
 
             if (headline && url) {
